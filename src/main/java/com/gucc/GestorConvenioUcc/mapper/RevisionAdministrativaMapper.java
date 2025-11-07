@@ -2,53 +2,44 @@ package com.gucc.GestorConvenioUcc.mapper;
 
 import com.gucc.GestorConvenioUcc.dto.RevisionAdministrativaDTO;
 import com.gucc.GestorConvenioUcc.entity.RevisionAdministrativa;
+import com.gucc.GestorConvenioUcc.entity.Usuario;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Date;
 
 @Component
-public class RevisionAdministrativaMapper implements BaseMapper<RevisionAdministrativaDTO, RevisionAdministrativa>{
-
-    @Override
-    public RevisionAdministrativa toEntity(RevisionAdministrativaDTO dto){
-        if (dto == null) return null;
-
-        RevisionAdministrativa revisionAdministrativa = new RevisionAdministrativa();
-        revisionAdministrativa.setId(dto.getId());
-        revisionAdministrativa.setFechaRevision(dto.getFechaRevision());
-        revisionAdministrativa.setAprobada(dto.getAprobada());
-        revisionAdministrativa.setRazonRechazo(dto.getRazonRechazo());
-        return revisionAdministrativa;
-    }
+public class RevisionAdministrativaMapper
+        extends RevisionBaseMapper<RevisionAdministrativa, RevisionAdministrativaDTO> {
 
     @Override
     public RevisionAdministrativaDTO toDto(RevisionAdministrativa entity) {
         if (entity == null) return null;
-
         RevisionAdministrativaDTO dto = new RevisionAdministrativaDTO();
-        dto.setId(entity.getId());
-        dto.setFechaRevision(entity.getFechaRevision());
-        dto.setAprobada(entity.getAprobada());
-        dto.setRazonRechazo(entity.getRazonRechazo());
-
+        mapBaseEntityToDto(entity, dto);
         return dto;
     }
 
     @Override
-    public List<RevisionAdministrativa> toEntityList(List<RevisionAdministrativaDTO> dtoList) {
-        if (dtoList == null) return null;
-        return dtoList.stream()
-                .map(this::toEntity)
-                .collect(Collectors.toList());
+    public RevisionAdministrativa toEntity(RevisionAdministrativaDTO dto) {
+        if (dto == null) return null;
+        RevisionAdministrativa entity = new RevisionAdministrativa();
+        entity.setId(dto.getId());
+        entity.setFechaRevision(dto.getFechaRevision());
+        entity.setAprobada(dto.getAprobada());
+        entity.setRazonRechazo(dto.getRazonRechazo());
+
+        if (dto.getRevisorId() != null) {
+            Usuario revisor = new Usuario();
+            revisor.setId(dto.getRevisorId());
+            entity.setRevisorAdministrativo(revisor);
+        }
+        return entity;
     }
 
-    @Override
-    public List<RevisionAdministrativaDTO> toDtoList(List<RevisionAdministrativa> entityList) {
-        if (entityList == null) return null;
-        return entityList.stream()
-                .map(this::toDto)
-                .collect(Collectors.toList());
-    }
-
+    @Override protected Long getId(RevisionAdministrativa e) { return e.getId(); }
+    @Override protected Date getFechaRevision(RevisionAdministrativa e) { return e.getFechaRevision(); }
+    @Override protected Boolean getAprobada(RevisionAdministrativa e) { return e.getAprobada(); }
+    @Override protected String getRazonRechazo(RevisionAdministrativa e) { return e.getRazonRechazo(); }
+    @Override protected Object getRevisor(RevisionAdministrativa e) { return e.getRevisorAdministrativo(); }
+    @Override protected Long getRevisorId(Object r) { return ((Usuario) r).getId(); }
 }

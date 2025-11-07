@@ -7,9 +7,8 @@ import java.util.Date;
 @Data
 public abstract class RevisionBaseDTO {
     private Long id;
-    private Date fechaRevision;
     private Long revisorId;
-    private String revisorNombre;
+    private Date fechaRevision;
     private Boolean aprobada;
     private String razonRechazo;
 }
