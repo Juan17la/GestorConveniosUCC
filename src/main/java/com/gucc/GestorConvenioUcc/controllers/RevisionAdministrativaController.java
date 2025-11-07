@@ -8,18 +8,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/revision-administrativa/")
+@RequestMapping("/api/revision/administrativa")
 @RequiredArgsConstructor
 public class RevisionAdministrativaController {
 
     private final RevisionAdministrativaService revisionAdministrativaService;
 
-    @PostMapping(value = "create")
+    @PostMapping(value = "/create")
     public ResponseEntity<RevisionAdministrativaDTO> create(@RequestBody RevisionAdministrativaDTO revisionAdministrativaDTO){
         return ResponseEntity.ok(revisionAdministrativaService.create(revisionAdministrativaDTO));
     }
 
-    @PostMapping(value = "delete/{id}")
+    @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
         revisionAdministrativaService.delete(id);
         return ResponseEntity.noContent().build();
