@@ -22,7 +22,6 @@ public abstract class RevisionBaseMapper<E, D extends RevisionBaseDTO> implement
         }
     }
 
-    // Métodos comunes de lista 👇
     @Override
     public List<E> toEntityList(List<D> dtoList) {
         if (dtoList == null) return null;
