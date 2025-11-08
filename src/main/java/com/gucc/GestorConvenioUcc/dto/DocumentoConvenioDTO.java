@@ -2,6 +2,7 @@ package com.gucc.GestorConvenioUcc.dto;
 
 import lombok.Data;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 public class DocumentoConvenioDTO {
@@ -10,6 +11,5 @@ public class DocumentoConvenioDTO {
     private String url;
     private String tipoArchivo;
     private Long subidoPorId;
-    private String subidoPorNombre;
-    private LocalDateTime fechaSubida;
+    private Date fechaSubida;
 }
