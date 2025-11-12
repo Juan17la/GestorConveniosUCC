@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
 public class FirmaConvenioMapper implements BaseMapper<FirmaConvenioDTO, FirmaConvenio>{
     @Override
     public FirmaConvenioDTO toDto(FirmaConvenio entity) {
+        if (entity == null) return null;
+
         FirmaConvenioDTO dto = new FirmaConvenioDTO();
         dto.setId(entity.getId());
         dto.setFechaFirma(entity.getFechaFirma());
