@@ -34,4 +34,9 @@ public class RevisionJuridica {
 
     @Column(nullable = true, columnDefinition = "TEXT")
     private String mensajeRechazo;
+
+    @PrePersist
+    protected void onCreate() {
+        fechaCreacion = LocalDateTime.now();
+    }
 }
