@@ -14,10 +14,8 @@ public class FirmaConvenioCampusDTO {
     private Long id;
     private LocalDateTime fechaCreacion;
     private Long revisorId;
-    private String revisorNombre;
     private Long peticionId;
     private Long documentoFirmadoId;
-    private String documentoFirmadoNombre;
     private Boolean aprobada;
     private String mensajeRechazo;
 }
