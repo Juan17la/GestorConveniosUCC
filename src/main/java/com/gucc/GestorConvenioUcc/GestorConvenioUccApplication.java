@@ -8,6 +8,10 @@ public class GestorConvenioUccApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(GestorConvenioUccApplication.class, args);
-        System.out.println("Up at localhost:/3249");
+        System.out.println("=============================");
+        System.out.println("Up at http://localhost:/3249");
+        System.out.println("=============================");
+        System.out.println("I'mma kms rn");
+        System.out.println("=============================");
 	}
 }

@@ -1,6 +1,5 @@
 package com.gucc.GestorConvenioUcc.entity;
 
-import com.gucc.GestorConvenioUcc.enums.Roles;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,44 +8,42 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "usuarios")
+@Table(name = "documentos")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Usuario {
+public class Documento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String nombre;
+    private String nombreOriginal;
 
     @Column(nullable = false)
-    private String apellidos;
+    private String url;
 
     @Column(nullable = false)
-    private String contrasena;
-
-    @Column(nullable = false, unique = true)
-    private String email;
+    private String tipoArchivo;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "campus_id", nullable = false)
-    private Campus campus;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Roles rol;
+    @JoinColumn(name = "subido_por_id", nullable = false)
+    private Usuario subidoPor;
 
     @Column(nullable = false)
-    private LocalDateTime fechaCreacion;
+    private LocalDateTime fechaSubida;
 
-    @Column(nullable = true)
-    private LocalDateTime fechaUltimoLogin;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "peticion_id")
+    private Peticion peticion;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "convenio_id")
+    private Convenio convenio;
 
     @PrePersist
     protected void onCreate() {
-        fechaCreacion = LocalDateTime.now();
+        fechaSubida = LocalDateTime.now();
     }
 }

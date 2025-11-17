@@ -1,6 +1,5 @@
 package com.gucc.GestorConvenioUcc.dto;
 
-import com.gucc.GestorConvenioUcc.enums.EstadoConvenio;
 import com.gucc.GestorConvenioUcc.enums.TipoConvenio;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,21 +12,19 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ConvenioDTO {
+public class PeticionDTO {
     private Long id;
-    private String nombreConvenio;
+    private String nombrePeticion;
     private LocalDateTime fechaInicio;
     private LocalDateTime fechaFinalizacion;
     private TipoConvenio tipo;
     private Long creadoPorId;
     private Long campusId;
-    private Long supervisadoPorId;
     private Long empresaId;
-    private Long peticionCreacionId;
+    private Long revisionJuridicaId;
+    private Long firmaConvenioCampusId;
+    private Long firmaConvenioNacionalId;
     private List<Long> documentoIds;
-    private List<Long> reporteEmpresaIds;
-    private List<Long> alertasVencimientoIds;
-    private List<Long> renovacionesIds;
+    private Long convenioId;
     private LocalDateTime fechaCreacion;
-    private EstadoConvenio estado;
 }

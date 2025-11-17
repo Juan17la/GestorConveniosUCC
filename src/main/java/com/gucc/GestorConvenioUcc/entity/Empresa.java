@@ -5,15 +5,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "campus")
+@Table(name = "empresas")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Campus {
+public class Empresa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,14 +20,15 @@ public class Campus {
     @Column(nullable = false)
     private String nombre;
 
+    @Column(nullable = false, unique = true)
+    private String nit;
+
     @Column(nullable = false)
     private String direccion;
 
     @Column(nullable = false)
-    private LocalDateTime fechaCreacion;
+    private String telefono;
 
-    @PrePersist
-    protected void onCreate() {
-        fechaCreacion = LocalDateTime.now();
-    }
+    @Column(nullable = false)
+    private String representante;
 }

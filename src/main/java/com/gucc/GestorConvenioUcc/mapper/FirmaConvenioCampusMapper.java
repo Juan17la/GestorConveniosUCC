@@ -1,19 +1,21 @@
 package com.gucc.GestorConvenioUcc.mapper;
 
-import com.gucc.GestorConvenioUcc.dto.RevisionJuridicaDTO;
-import com.gucc.GestorConvenioUcc.entity.RevisionJuridica;
+import com.gucc.GestorConvenioUcc.dto.FirmaConvenioCampusDTO;
+import com.gucc.GestorConvenioUcc.entity.FirmaConvenioCampus;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
-public interface RevisionJuridicaMapper {
-    RevisionJuridicaMapper INSTANCE = Mappers.getMapper(RevisionJuridicaMapper.class);
+public interface FirmaConvenioCampusMapper {
+    FirmaConvenioCampusMapper INSTANCE = Mappers.getMapper(FirmaConvenioCampusMapper.class);
 
     @Mapping(source = "revisor.id", target = "revisorId")
     @Mapping(source = "revisor.nombre", target = "revisorNombre")
     @Mapping(source = "peticion.id", target = "peticionId")
-    RevisionJuridicaDTO toDTO(RevisionJuridica revisionJuridica);
+    @Mapping(source = "documentoFirmado.id", target = "documentoFirmadoId")
+    @Mapping(source = "documentoFirmado.nombreOriginal", target = "documentoFirmadoNombre")
+    FirmaConvenioCampusDTO toDTO(FirmaConvenioCampus firmaConvenioCampus);
 
     @Mapping(source = "revisorId", target = "revisor.id")
     @Mapping(target = "revisor.nombre", ignore = true)
@@ -37,5 +39,13 @@ public interface RevisionJuridicaMapper {
     @Mapping(target = "peticion.documentos", ignore = true)
     @Mapping(target = "peticion.convenio", ignore = true)
     @Mapping(target = "peticion.fechaCreacion", ignore = true)
-    RevisionJuridica toEntity(RevisionJuridicaDTO revisionJuridicaDTO);
+    @Mapping(source = "documentoFirmadoId", target = "documentoFirmado.id")
+    @Mapping(target = "documentoFirmado.nombreOriginal", ignore = true)
+    @Mapping(target = "documentoFirmado.url", ignore = true)
+    @Mapping(target = "documentoFirmado.tipoArchivo", ignore = true)
+    @Mapping(target = "documentoFirmado.subidoPor", ignore = true)
+    @Mapping(target = "documentoFirmado.fechaSubida", ignore = true)
+    @Mapping(target = "documentoFirmado.peticion", ignore = true)
+    @Mapping(target = "documentoFirmado.convenio", ignore = true)
+    FirmaConvenioCampus toEntity(FirmaConvenioCampusDTO firmaConvenioCampusDTO);
 }

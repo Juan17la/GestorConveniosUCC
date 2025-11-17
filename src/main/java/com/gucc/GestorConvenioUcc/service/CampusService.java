@@ -1,15 +1,25 @@
 package com.gucc.GestorConvenioUcc.service;
 
 import com.gucc.GestorConvenioUcc.dto.CampusDTO;
+import com.gucc.GestorConvenioUcc.entity.Campus;
+import com.gucc.GestorConvenioUcc.mapper.CampusMapper;
+import com.gucc.GestorConvenioUcc.repository.CampusRepository;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.List;
+@Service
+@RequiredArgsConstructor
+public class CampusService {
 
-public interface CampusService {
-    CampusDTO create(CampusDTO request);
+    private final CampusRepository repository;
+    private final CampusMapper mapper;
 
-    CampusDTO findById(Long id);
-
-    List<CampusDTO> findAll();
-
-    void delete(Long id);
+    public CampusDTO create(CampusDTO request){
+        Campus newCampus = mapper.toEntity(request);
+        Campus saved = repository.save(newCampus);
+        return mapper.toDTO(saved);
+    }
 }
+

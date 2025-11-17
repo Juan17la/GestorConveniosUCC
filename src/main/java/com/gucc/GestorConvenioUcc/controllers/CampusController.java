@@ -11,16 +11,10 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class CampusController {
 
-    private final CampusService campusService;
+    private final CampusService service;
 
-    @PostMapping(value = "/create")
-    public ResponseEntity<CampusDTO> create(@RequestBody CampusDTO campusDTO) {
-        return ResponseEntity.ok(campusService.create(campusDTO));
-    }
-
-    @DeleteMapping(value = "/delete/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id){
-        campusService.delete(id);
-        return ResponseEntity.noContent().build();
+    @PostMapping(value = "create")
+    public ResponseEntity<CampusDTO> create(@RequestBody CampusDTO request){
+        return ResponseEntity.ok(service.create(request));
     }
 }

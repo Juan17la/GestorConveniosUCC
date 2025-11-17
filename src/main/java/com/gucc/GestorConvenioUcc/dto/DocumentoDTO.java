@@ -10,12 +10,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RevisionJuridicaDTO {
+public class DocumentoDTO {
     private Long id;
-    private LocalDateTime fechaCreacion;
-    private Long revisorId;
-    private String revisorNombre;
+    private String nombreOriginal;
+    private String url;
+    private String tipoArchivo;
+    private Long subidoPorId;
+    private LocalDateTime fechaSubida;
     private Long peticionId;
-    private Boolean aprobada;
-    private String mensajeRechazo;
+    private Long convenioId;
 }

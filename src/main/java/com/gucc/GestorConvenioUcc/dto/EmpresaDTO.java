@@ -4,15 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CampusDTO {
+public class EmpresaDTO {
     private Long id;
     private String nombre;
+    private String nit;
     private String direccion;
-    private LocalDateTime fechaCreacion;
+    private String telefono;
+    private String representante;
 }

@@ -8,12 +8,12 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "revisiones_juridicas")
+@Table(name = "firmas_convenio_nacional")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RevisionJuridica {
+public class FirmaConvenioNacional {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,6 +28,10 @@ public class RevisionJuridica {
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "peticion_id", nullable = false)
     private Peticion peticion;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "documento_firmado_id", nullable = false)
+    private Documento documentoFirmado;
 
     @Column(nullable = false)
     private Boolean aprobada;
