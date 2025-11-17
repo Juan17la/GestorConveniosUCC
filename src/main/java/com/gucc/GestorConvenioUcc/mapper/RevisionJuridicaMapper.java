@@ -11,12 +11,10 @@ public interface RevisionJuridicaMapper {
     RevisionJuridicaMapper INSTANCE = Mappers.getMapper(RevisionJuridicaMapper.class);
 
     @Mapping(source = "revisor.id", target = "revisorId")
-    @Mapping(source = "revisor.nombre", target = "revisorNombre")
     @Mapping(source = "peticion.id", target = "peticionId")
     RevisionJuridicaDTO toDTO(RevisionJuridica revisionJuridica);
 
     @Mapping(source = "revisorId", target = "revisor.id")
-    @Mapping(target = "revisor.nombre", ignore = true)
     @Mapping(target = "revisor.apellidos", ignore = true)
     @Mapping(target = "revisor.email", ignore = true)
     @Mapping(target = "revisor.contrasena", ignore = true)
@@ -25,7 +23,6 @@ public interface RevisionJuridicaMapper {
     @Mapping(target = "revisor.fechaCreacion", ignore = true)
     @Mapping(target = "revisor.fechaUltimoLogin", ignore = true)
     @Mapping(source = "peticionId", target = "peticion.id")
-    @Mapping(target = "peticion.nombrePeticion", ignore = true)
     @Mapping(target = "peticion.fechaInicio", ignore = true)
     @Mapping(target = "peticion.fechaFinalizacion", ignore = true)
     @Mapping(target = "peticion.tipo", ignore = true)
