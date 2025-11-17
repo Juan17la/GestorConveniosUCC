@@ -1,5 +1,6 @@
 package com.gucc.GestorConvenioUcc.repository;
 
+import com.gucc.GestorConvenioUcc.entity.Peticion;
 import com.gucc.GestorConvenioUcc.entity.RevisionJuridica;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -11,4 +12,6 @@ public interface RevisionJuridicaRepository extends JpaRepository<RevisionJuridi
     Optional<RevisionJuridica> findByPeticionId(Long peticionId);
     List<RevisionJuridica> findByRevisorId(Long revisorId);
     List<RevisionJuridica> findByAprobada(Boolean aprobada);
+
+    boolean existsByPeticion(Peticion peticion);
 }
