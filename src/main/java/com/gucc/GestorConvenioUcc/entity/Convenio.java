@@ -74,6 +74,9 @@ public class Convenio {
     @Column(nullable = false)
     private EstadoConvenio estado;
 
+    @Column(name = "ignorado", nullable = false)
+    private boolean ignorado = false;
+
     @PrePersist
     protected void onCreate() {
         fechaCreacion = LocalDateTime.now();
