@@ -11,7 +11,6 @@ public interface RenovacionConvenioMapper {
     RenovacionConvenioMapper INSTANCE = Mappers.getMapper(RenovacionConvenioMapper.class);
 
     @Mapping(source = "convenioOriginal.id", target = "convenioOriginalId")
-    @Mapping(source = "convenioOriginal.nombreConvenio", target = "convenioOriginalNombre")
     @Mapping(source = "nuevaPeticion.id", target = "nuevaPeticionId")
     RenovacionConvenioDTO toDTO(RenovacionConvenio renovacionConvenio);
 

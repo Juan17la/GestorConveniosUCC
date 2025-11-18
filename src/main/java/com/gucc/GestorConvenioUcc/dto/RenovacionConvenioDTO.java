@@ -1,6 +1,5 @@
 package com.gucc.GestorConvenioUcc.dto;
 
-import com.gucc.GestorConvenioUcc.enums.TipoRenovacion;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,8 +13,6 @@ import java.time.LocalDateTime;
 public class RenovacionConvenioDTO {
     private Long id;
     private Long convenioOriginalId;
-    private String convenioOriginalNombre;
     private Long nuevaPeticionId;
-    private LocalDateTime fecha;
-    private TipoRenovacion accion;
+    private LocalDateTime fechaCreacion;
 }
