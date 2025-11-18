@@ -1,5 +1,7 @@
 package com.gucc.GestorConvenioUcc.entity;
 
+import com.gucc.GestorConvenioUcc.enums.EstadoConvenio;
+import com.gucc.GestorConvenioUcc.enums.EstadoPeticion;
 import com.gucc.GestorConvenioUcc.enums.TipoConvenio;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -29,6 +31,10 @@ public class Peticion {
 
     @Column(nullable = false)
     private LocalDateTime fechaFinalizacion;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private EstadoPeticion estado;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -68,5 +74,9 @@ public class Peticion {
     @PrePersist
     protected void onCreate() {
         fechaCreacion = LocalDateTime.now();
+        if (estado == null) {
+            estado = EstadoPeticion.EN_REVISION_JURIDICA;
+        }
     }
+
 }
