@@ -5,6 +5,7 @@ import com.gucc.GestorConvenioUcc.entity.Documento;
 import com.gucc.GestorConvenioUcc.entity.FirmaConvenioCampus;
 import com.gucc.GestorConvenioUcc.entity.Peticion;
 import com.gucc.GestorConvenioUcc.entity.Usuario;
+import com.gucc.GestorConvenioUcc.enums.EstadoPeticion;
 import com.gucc.GestorConvenioUcc.mapper.FirmaConvenioCampusMapper;
 import com.gucc.GestorConvenioUcc.repository.FirmaConvenioCampusRepository;
 import com.gucc.GestorConvenioUcc.repository.PeticionRepository;
@@ -29,23 +30,32 @@ public class FirmaConvenioCampusService {
     @Transactional
     public FirmaConvenioCampusDTO create(FirmaConvenioCampusDTO request, MultipartFile firma) throws IOException {
 
+        // Validar que la petición existe
         Peticion peticion = repositoryPeticion.findById(request.getPeticionId())
                 .orElseThrow(() -> new RuntimeException("La petición no existe"));
 
+        // Validar que no existe una firma nacional previa
         if (repositoryFirma.existsByPeticion(peticion)) {
-            throw new RuntimeException("Ya existe una firma campus para esta petición");
+            throw new RuntimeException("Ya existe una firma nacional para esta petición");
+        }
+
+        // Validar que el estado de la petición es correcto
+        if (peticion.getEstado() != EstadoPeticion.EN_FIRMA_CAMPUS) {
+            throw new RuntimeException("La petición no está en estado de firma nacional");
         }
 
         Usuario revisor = repositoryUsuario.findById(request.getRevisorId())
                 .orElseThrow(() -> new RuntimeException("Revisor no encontrado"));
 
         Documento firmaDocumento = serviceDocumento.create(firma, revisor);
-        firmaDocumento.setPeticion(peticion); // relacionar con la petición
+        firmaDocumento.setPeticion(peticion);
+
+        peticion.setEstado(EstadoPeticion.EN_FIRMA_NACIONAL);
 
         FirmaConvenioCampus firmaCampus = mapperFirma.toEntity(request);
         firmaCampus.setPeticion(peticion);
         firmaCampus.setRevisor(revisor);
-        firmaCampus.setDocumentoFirmado(firmaDocumento); // asignar documento ya persistido
+        firmaCampus.setDocumentoFirmado(firmaDocumento);
 
         FirmaConvenioCampus saved = repositoryFirma.save(firmaCampus);
 
