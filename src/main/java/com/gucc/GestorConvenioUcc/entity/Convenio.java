@@ -1,6 +1,7 @@
 package com.gucc.GestorConvenioUcc.entity;
 
 import com.gucc.GestorConvenioUcc.enums.EstadoConvenio;
+import com.gucc.GestorConvenioUcc.enums.EstadoPeticion;
 import com.gucc.GestorConvenioUcc.enums.TipoConvenio;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -72,4 +73,12 @@ public class Convenio {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private EstadoConvenio estado;
+
+    @PrePersist
+    protected void onCreate() {
+        fechaCreacion = LocalDateTime.now();
+        if (estado == null) {
+            estado = EstadoConvenio.ACTIVO;
+        }
+    }
 }
