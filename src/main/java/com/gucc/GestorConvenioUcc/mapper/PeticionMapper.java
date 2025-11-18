@@ -22,6 +22,7 @@ public interface PeticionMapper {
     @Mapping(source = "firmaConvenioNacional.id", target = "firmaConvenioNacionalId")
     @Mapping(source = "documentos", target = "documentoIds", qualifiedByName = "documentosToIds")
     @Mapping(source = "convenio.id", target = "convenioId")
+    @Mapping(source = "estado", target = "estado") // <--- Aquí mapeamos explícitamente el estado
     PeticionDTO toDTO(Peticion peticion);
 
     @Mapping(source = "creadoPorId", target = "creadoPor.id")
@@ -48,6 +49,7 @@ public interface PeticionMapper {
     @Mapping(target = "firmaConvenioNacional", ignore = true)
     @Mapping(target = "documentos", ignore = true)
     @Mapping(target = "convenio", ignore = true)
+    @Mapping(source = "estado", target = "estado") // <--- Aquí también
     Peticion toEntity(PeticionDTO peticionDTO);
 
     @Named("documentosToIds")
