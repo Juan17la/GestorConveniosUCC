@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "empresas")
@@ -31,4 +33,14 @@ public class Empresa {
 
     @Column(nullable = false)
     private String representante;
+
+    // ✅ NUEVA: Relación inversa con Convenios
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa", cascade = CascadeType.ALL)
+    @Builder.Default
+    private List<Convenio> convenios = new ArrayList<>();
+
+    // ✅ NUEVA: Relación inversa con ReportesEmpresa
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<ReporteEmpresa> reportes = new ArrayList<>();
 }

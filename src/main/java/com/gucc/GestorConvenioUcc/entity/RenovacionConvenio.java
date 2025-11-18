@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -33,5 +35,9 @@ public class RenovacionConvenio {
     @PrePersist
     protected void onCreate() {
         fechaCreacion = LocalDateTime.now();
+    }
+
+    public LocalDate getFechaFinalizacion() {
+        return null;
     }
 }

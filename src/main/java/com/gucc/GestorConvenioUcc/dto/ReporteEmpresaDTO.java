@@ -16,8 +16,12 @@ public class ReporteEmpresaDTO {
     private String descripcion;
     private String actividades;
     private String asistencia;
+
+    // IDs para las relaciones
     private Long empresaId;
-    private String empresaNombre;
     private Long convenioId;
+
+    // Información adicional para mostrar
+    private String empresaNombre;
     private String convenioNombre;
 }

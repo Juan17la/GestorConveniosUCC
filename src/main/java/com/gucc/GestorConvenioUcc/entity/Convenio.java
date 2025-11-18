@@ -1,7 +1,6 @@
 package com.gucc.GestorConvenioUcc.entity;
 
 import com.gucc.GestorConvenioUcc.enums.EstadoConvenio;
-import com.gucc.GestorConvenioUcc.enums.EstadoPeticion;
 import com.gucc.GestorConvenioUcc.enums.TipoConvenio;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -56,16 +56,20 @@ public class Convenio {
     private Peticion peticionCreacion;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "convenio", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Documento> documentos;
+    @Builder.Default
+    private List<Documento> documentos = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "convenio", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ReporteEmpresa> reportesEmpresa;
+    @Builder.Default
+    private List<ReporteEmpresa> reportesEmpresa = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "convenio", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<AlertaVencimiento> alertasVencimiento;
+    @Builder.Default
+    private List<AlertaVencimiento> alertasVencimiento = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "convenioOriginal", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<RenovacionConvenio> renovaciones;
+    @Builder.Default
+    private List<RenovacionConvenio> renovaciones = new ArrayList<>();
 
     @Column(nullable = false)
     private LocalDateTime fechaCreacion;
@@ -83,5 +87,16 @@ public class Convenio {
         if (estado == null) {
             estado = EstadoConvenio.ACTIVO;
         }
+    }
+
+    // ⚠️ CORRECCIÓN IMPORTANTE: Este método estaba devolviendo null
+    // Lombok ya genera getIgnorado() por el campo 'ignorado'
+    // Por lo tanto, ELIMINA este método o corrígelo así:
+    public Boolean getIgnorado() {
+        return this.ignorado;
+    }
+
+    public boolean isIgnorado() {
+        return false;
     }
 }
