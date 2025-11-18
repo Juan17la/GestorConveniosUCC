@@ -4,6 +4,8 @@ import com.gucc.GestorConvenioUcc.entity.AlertaVencimiento;
 import com.gucc.GestorConvenioUcc.enums.EstadoAlerta;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -12,4 +14,5 @@ public interface AlertaVencimientoRepository extends JpaRepository<AlertaVencimi
     List<AlertaVencimiento> findByEnviadaAId(Long usuarioId);
     List<AlertaVencimiento> findByEstado(EstadoAlerta estado);
     List<AlertaVencimiento> findByEnviadaAIdAndEstado(Long usuarioId, EstadoAlerta estado);
+    boolean existsByConvenioIdAndFechaGeneradaAfter(Long convenioId, LocalDateTime fecha);
 }
