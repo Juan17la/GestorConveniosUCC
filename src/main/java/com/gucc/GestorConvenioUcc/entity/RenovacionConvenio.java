@@ -1,6 +1,5 @@
 package com.gucc.GestorConvenioUcc.entity;
 
-import com.gucc.GestorConvenioUcc.enums.TipoRenovacion;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,9 +27,11 @@ public class RenovacionConvenio {
     private Peticion nuevaPeticion;
 
     @Column(nullable = false)
-    private LocalDateTime fecha;
+    @JoinColumn(name = "fecha_creacion")
+    private LocalDateTime fechaCreacion;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private TipoRenovacion accion;
+    @PrePersist
+    protected void onCreate() {
+        fechaCreacion = LocalDateTime.now();
+    }
 }
