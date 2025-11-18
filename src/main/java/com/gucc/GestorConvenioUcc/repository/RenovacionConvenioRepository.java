@@ -11,4 +11,6 @@ public interface RenovacionConvenioRepository extends JpaRepository<RenovacionCo
     List<RenovacionConvenio> findByConvenioOriginalId(Long convenioId);
     List<RenovacionConvenio> findByNuevaPeticionId(Long peticionId);
     boolean existsByConvenioOriginalId(Long convenioId);
+
+    RenovacionConvenio findTopByConvenioOriginalIdOrderByFechaCreacionDesc(Long id);
 }
