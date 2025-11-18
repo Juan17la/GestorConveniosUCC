@@ -1,5 +1,6 @@
 package com.gucc.GestorConvenioUcc.dto;
 
+import com.gucc.GestorConvenioUcc.enums.EstadoPeticion;
 import com.gucc.GestorConvenioUcc.enums.TipoConvenio;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,6 +18,7 @@ public class PeticionDTO {
     private String nombrePeticion;
     private LocalDateTime fechaInicio;
     private LocalDateTime fechaFinalizacion;
+    private EstadoPeticion estado;
     private TipoConvenio tipo;
     private Long creadoPorId;
     private Long campusId;
