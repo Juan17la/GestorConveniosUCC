@@ -16,4 +16,6 @@ public interface ConvenioRepository extends JpaRepository<Convenio, Long> {
     List<Convenio> findByCampusIdAndEstado(Long campusId, EstadoConvenio estado);
     List<Convenio> findByEmpresaId(Long empresaId);
     List<Convenio> findBySupervisadoPorId(Long usuarioId);
+
+    List<Convenio> findByEstadoIn(List<EstadoConvenio> activo);
 }
