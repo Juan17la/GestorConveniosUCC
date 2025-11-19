@@ -6,5 +6,5 @@ public enum Roles {
     REVISOR_JURIDICO,   // Oficina Jurídica
     RECTORIA_CAMPUS,    // Rectoría sede Pasto
     RECTORIA_NACIONAL,   // Rectoría nacional
-    COMUN // Empresas, Estudiantes
+    REPRESENTANTE_EMPRESA
 }

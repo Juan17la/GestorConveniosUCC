@@ -39,7 +39,7 @@ public class ConvenioTracker {
     @Scheduled(cron = "0 0 0 * * *")
     @Transactional
     public void procesarEstadoConvenios() {
-        log.info("🔍 Iniciando proceso de actualización de estados de convenios...");
+        log.info("Iniciando proceso de actualización de estados de convenios...");
 
         LocalDate hoy = LocalDate.now();
 
@@ -47,7 +47,7 @@ public class ConvenioTracker {
                 List.of(EstadoConvenio.ACTIVO, EstadoConvenio.POR_VENCER, EstadoConvenio.VENCIDO)
         );
 
-        log.info("📋 Convenios a procesar: {}", convenios.size());
+        log.info("Convenios a procesar: {}", convenios.size());
 
         for (Convenio c : convenios) {
 
@@ -55,7 +55,7 @@ public class ConvenioTracker {
             // 1. ¿CONVENIO IGNORADO?
             // =======================
             if (Boolean.TRUE.equals(c.getIgnorado())) {
-                log.debug("⏭️ Convenio {} ignorado manualmente", c.getNombreConvenio());
+                log.debug("⏭Convenio {} ignorado manualmente", c.getNombreConvenio());
                 continue;
             }
 
@@ -73,7 +73,7 @@ public class ConvenioTracker {
                     c.setFechaFinalizacion(nuevaFecha.atStartOfDay());
                     c.setEstado(EstadoConvenio.ACTIVO);
 
-                    log.info("🔄 CONVENIO RENOVADO: {} → nueva fecha: {}",
+                    log.info("CONVENIO RENOVADO: {} → nueva fecha: {}",
                             c.getNombreConvenio(), nuevaFecha);
 
                     convenioRepo.save(c);
@@ -99,7 +99,7 @@ public class ConvenioTracker {
             if (diasRestantes < 0) {
                 if (c.getEstado() != EstadoConvenio.VENCIDO) {
                     c.setEstado(EstadoConvenio.VENCIDO);
-                    log.warn("❌ CONVENIO VENCIDO: {} (pasó {} días)",
+                    log.warn("CONVENIO VENCIDO: {} (pasó {} días)",
                             c.getNombreConvenio(), Math.abs(diasRestantes));
                 }
             }
@@ -107,7 +107,7 @@ public class ConvenioTracker {
             else if (mesesRestantes <= 6) {
                 if (c.getEstado() != EstadoConvenio.POR_VENCER) {
                     c.setEstado(EstadoConvenio.POR_VENCER);
-                    log.warn("⚠️ CONVENIO POR VENCER: {} (quedan {} meses / {} días)",
+                    log.warn("CONVENIO POR VENCER: {} (quedan {} meses / {} días)",
                             c.getNombreConvenio(), mesesRestantes, diasRestantes);
                 }
             }
@@ -115,7 +115,7 @@ public class ConvenioTracker {
             else {
                 if (c.getEstado() != EstadoConvenio.ACTIVO) {
                     c.setEstado(EstadoConvenio.ACTIVO);
-                    log.info("✅ CONVENIO REACTIVADO: {} (quedan {} meses)",
+                    log.info("CONVENIO REACTIVADO: {} (quedan {} meses)",
                             c.getNombreConvenio(), mesesRestantes);
                 }
             }
@@ -131,7 +131,7 @@ public class ConvenioTracker {
             if (!tieneRenovacionEnCurso) {
                 generarAlertaSiCorresponde(c, mesesRestantes, diasRestantes);
             } else {
-                log.debug("🔄 Convenio {} tiene renovación en curso, no se genera alerta",
+                log.debug("Convenio {} tiene renovación en curso, no se genera alerta",
                         c.getNombreConvenio());
             }
 
@@ -140,12 +140,12 @@ public class ConvenioTracker {
             // =======================
             if (estadoAnterior != c.getEstado()) {
                 convenioRepo.save(c);
-                log.info("💾 Estado actualizado: {} → {} para convenio {}",
+                log.info("Estado actualizado: {} → {} para convenio {}",
                         estadoAnterior, c.getEstado(), c.getNombreConvenio());
             }
         }
 
-        log.info("✅ Proceso de actualización de convenios completado");
+        log.info("Proceso de actualización de convenios completado");
     }
 
     /**
@@ -215,13 +215,19 @@ public class ConvenioTracker {
     //     log.debug("🕐 Verificación horaria de convenios...");
     // }
 
-    /**
-     * PARA PRUEBAS: Se ejecuta cada 30 segundos
-     * ⚠️ DESCOMENTAR SOLO PARA TESTING - COMENTAR EN PRODUCCIÓN
-     */
     @Scheduled(fixedRate = 30000) // 30 segundos
     public void verificacionPruebas() {
-        log.info("🧪 [MODO PRUEBA] Ejecutando verificación cada 30 segundos...");
+        log.info("[MODO PRUEBA] Ejecutando verificación cada 30 segundos...");
         procesarEstadoConvenios();
     }
+
+    /**
+     * OPCIONAL: Para testing - se ejecuta cada 5 minutos
+     * Útil durante desarrollo, comentar en producción
+     */
+    // @Scheduled(fixedRate = 300000) // 5 minutos
+    // public void verificacionFrecuente() {
+    //     procesarEstadoConvenios();
+    // }
 }
+

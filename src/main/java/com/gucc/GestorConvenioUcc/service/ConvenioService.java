@@ -9,6 +9,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ConvenioService {
@@ -40,4 +42,12 @@ public class ConvenioService {
                 .estado(EstadoConvenio.ACTIVO)
                 .build();
     }
+
+    public List<ConvenioDTO> getAllConvenios() {
+        return repositoryConvenio.findAll()
+                .stream()
+                .map(mapper::toDTO)
+                .toList();
+    }
+
 }
