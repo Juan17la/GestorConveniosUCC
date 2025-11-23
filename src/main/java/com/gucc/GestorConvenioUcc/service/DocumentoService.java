@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -51,6 +52,29 @@ public class DocumentoService {
 
         Documento saved = repository.save(documento);
         return mapper.toDTO(saved);
+    }
+
+    // Obtener todos los documentos
+    public List<DocumentoDTO> getAll() {
+        return repository.findAll()
+                .stream()
+                .map(mapper::toDTO)
+                .toList();
+    }
+
+    // Obtener documento por ID
+    public DocumentoDTO getById(Long id) {
+        Documento documento = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Documento con ID " + id + " no encontrado"));
+        return mapper.toDTO(documento);
+    }
+
+    // Eliminar documento
+    public void delete(Long id) {
+        if (!repository.existsById(id)) {
+            throw new RuntimeException("Documento con ID " + id + " no encontrado");
+        }
+        repository.deleteById(id);
     }
 
 }
