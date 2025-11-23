@@ -50,4 +50,36 @@ public class ConvenioService {
                 .toList();
     }
 
+    // Obtener convenio por ID
+    public ConvenioDTO getById(Long id) {
+        Convenio convenio = repositoryConvenio.findById(id)
+                .orElseThrow(() -> new RuntimeException("Convenio con ID " + id + " no encontrado"));
+        return mapper.toDTO(convenio);
+    }
+
+    // Actualizar convenio existente
+    @Transactional
+    public ConvenioDTO update(Long id, ConvenioDTO request) {
+        Convenio existing = repositoryConvenio.findById(id)
+                .orElseThrow(() -> new RuntimeException("Convenio con ID " + id + " no encontrado"));
+        
+        existing.setNombreConvenio(request.getNombreConvenio());
+        existing.setFechaInicio(request.getFechaInicio());
+        existing.setFechaFinalizacion(request.getFechaFinalizacion());
+        existing.setTipo(request.getTipo());
+        existing.setEstado(request.getEstado());
+        
+        Convenio updated = repositoryConvenio.save(existing);
+        return mapper.toDTO(updated);
+    }
+
+    // Eliminar convenio
+    @Transactional
+    public void delete(Long id) {
+        if (!repositoryConvenio.existsById(id)) {
+            throw new RuntimeException("Convenio con ID " + id + " no encontrado");
+        }
+        repositoryConvenio.deleteById(id);
+    }
+
 }

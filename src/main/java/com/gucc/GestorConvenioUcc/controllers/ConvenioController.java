@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/convenio")
 @RequiredArgsConstructor
@@ -29,11 +30,31 @@ public class ConvenioController {
         return ResponseEntity.ok(serviceRenovacion.create(convenio_id, request));
     }
 
-    // GETS PARA FRONT
-    @GetMapping("/convenios")
+    // Obtener todos los convenios
+    @GetMapping
     public ResponseEntity<List<ConvenioDTO>> getAllConvenios() {
         return ResponseEntity.ok(convenioService.getAllConvenios());
     }
 
+    // Obtener convenio por ID
+    @GetMapping("/{id}")
+    public ResponseEntity<ConvenioDTO> getConvenioById(@PathVariable Long id) {
+        return ResponseEntity.ok(convenioService.getById(id));
+    }
+
+    // Actualizar convenio
+    @PutMapping("/{id}")
+    public ResponseEntity<ConvenioDTO> updateConvenio(
+            @PathVariable Long id,
+            @RequestBody ConvenioDTO request) {
+        return ResponseEntity.ok(convenioService.update(id, request));
+    }
+
+    // Eliminar convenio
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteConvenio(@PathVariable Long id) {
+        convenioService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 
 }
