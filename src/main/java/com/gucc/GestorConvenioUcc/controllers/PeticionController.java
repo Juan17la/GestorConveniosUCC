@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/peticion")
@@ -72,5 +72,32 @@ public class PeticionController {
         firmaNacionalRequest.setPeticionId(peticionId);
 
         return ResponseEntity.ok(serviceFirmaNacional.create(firmaNacionalRequest, firmaNacionalDocumento));
+    }
+
+    // Obtener todas las peticiones
+    @GetMapping
+    public ResponseEntity<List<PeticionDTO>> getAll() {
+        return ResponseEntity.ok(servicePeticion.getAll());
+    }
+
+    // Obtener peticion por ID
+    @GetMapping("/{id}")
+    public ResponseEntity<PeticionDTO> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(servicePeticion.getById(id));
+    }
+
+    // Actualizar peticion
+    @PutMapping("/{id}")
+    public ResponseEntity<PeticionDTO> update(
+            @PathVariable Long id,
+            @RequestBody PeticionDTO request) {
+        return ResponseEntity.ok(servicePeticion.update(id, request));
+    }
+
+    // Eliminar peticion
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        servicePeticion.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
