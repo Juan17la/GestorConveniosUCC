@@ -200,7 +200,7 @@ public class ConvenioTracker {
 
                 alertaRepo.save(alerta);
 
-                log.warn("🚨 ALERTA GENERADA: Convenio '{}' vence en {} ({} días restantes)",
+                log.warn("ALERTA GENERADA: Convenio '{}' vence en {} ({} días restantes)",
                         convenio.getNombreConvenio(), tipoAlerta, diasRestantes);
             }
         }
@@ -212,12 +212,12 @@ public class ConvenioTracker {
      */
     // @Scheduled(cron = "0 0 * * * *")
     // public void verificacionHoraria() {
-    //     log.debug("🕐 Verificación horaria de convenios...");
+    //     log.debug("Verificación horaria de convenios...");
     // }
 
-    @Scheduled(fixedRate = 30000) // 30 segundos
+    @Scheduled(fixedRate = 120000) // 120 segundos
     public void verificacionPruebas() {
-        log.info("[MODO PRUEBA] Ejecutando verificación cada 30 segundos...");
+        log.info("[MODO PRUEBA] Ejecutando verificación cada 120 segundos...");
         procesarEstadoConvenios();
     }
 
@@ -225,7 +225,7 @@ public class ConvenioTracker {
      * OPCIONAL: Para testing - se ejecuta cada 5 minutos
      * Útil durante desarrollo, comentar en producción
      */
-    // @Scheduled(fixedRate = 300000) // 5 minutos
+    // @Scheduled(fixedRate = 300000) //
     // public void verificacionFrecuente() {
     //     procesarEstadoConvenios();
     // }
